@@ -66,7 +66,7 @@ cd /usr/local/freeswitch/bin
 
 本次示例在CentOS 7中进行源码编译安装，感谢由Github用户cotinyang提供的已经写好的集成讯飞SDK的UniMRCP Server源码。
 
-1.下载[UniMRCP Server Plugin Demo 源码](https://github.com/cotinyang/MRCP-Plugin-Demo)：
+1.下载 [UniMRCP Server Plugin Demo 源码](https://github.com/cotinyang/MRCP-Plugin-Demo)：
 
 ```
 cd /opt
@@ -94,7 +94,19 @@ make install
 
 ### 第三步 集成讯飞开放平台SDK
 
-下载讯飞开发平台SDK包，上一步下载的MRCP-Plugin-Demo中已有SDK包，但实际上，讯飞的SDK包和用户以及用户创建的应用相关联，因此需要将third-party/xfyun中的文件删除，重新下载属于自己的SDK，目录与源代码基本一致。
+实际上一步下载的MRCP-Plugin-Demo中已有SDK包，但从讯飞开放平台下载的SDK包和用户以及用户创建的应用相关联，因此需要将third-party/xfyun/中的文件和文件夹全部删除，重新下载解压属于自己的SDK，目录与源代码基本一致。
+
+1.需要你并注册登录 [讯飞开放平台](https://www.xfyun.cn/) ，进入控制台页面，并创建应用；
+
+>注：创建应用页面中的应用平台选择“Linux”。
+
+2.在“我的应用”界面获得你的APPID，并为该应用“添加新服务”，选择需要的“语音听写”和”在线语音合成“服务（本示例需要）；
+
+3.点击右侧“SDK下载”，在跳转页面中确认“选择应用”已经选中了你创建的应用，“选择您需要的AI能力”选中上述两项服务，并点击“SDK下载”等待SDK生成与完成下载。
+
+4.将下载的zip包，解压并替换MRCP-Plugin-Demo/unimrcp-1.5.0/plugins/third-party/xfyun/下的所有文件及文件夹。
+
+5.重新编译安装unimrcp。
 
 ### 第四步 测试与验证
 
