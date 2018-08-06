@@ -1,6 +1,6 @@
 # mrcp-plugin-with-freeswitch 
 
-这是我的第一个Github工程，特别感谢 [Cotin网站](https://cotin.tech) 《构建简单的智能客服系统》[（一）](https://cotin.tech/AI/FreeswitchSetting/)、 [（二）](https://cotin.tech/AI/UniMRCPASR/) 、[（三）](https://cotin.tech/AI/UniMRCPASR/) 对于构建过程的帮助。
+这是我的第一个Github工程，特别感谢 [Cotin网站](https://cotin.tech) 《构建简单的智能客服系统》[（一）](https://cotin.tech/AI/FreeswitchSetting/)、 [（二）](https://cotin.tech/AI/UniMRCPASR/) 、[（三）](https://cotin.tech/AI/UniMRCPTTS/) 对于构建过程的帮助，您可以在阅读本教程前，先行阅读这三篇文章，本次教程将基于此给出更多的操作细节，错误处理和其他技术讲解。
 
 ## 主要目的 
 
@@ -62,6 +62,8 @@ cd /usr/local/freeswitch/bin
 
 即可启动应用。
 
+FreeSWITCH默认配置1000-1019（20个）用户，默认密码1234，您可以提前跳转到第四步“测试与验证”，登录并拨打5000，可以听到默认ivr的示例语音菜单指引。
+
 ### 第二步 配置编译UniMRCP Server
 
 本次示例在CentOS 7中进行源码编译安装，感谢由Github用户cotinyang提供的已经写好的集成讯飞SDK的UniMRCP Server源码。
@@ -121,5 +123,7 @@ make install
 ## 其他相关资料
 
 FreeSWITCH主页：https://freeswitch.com/
+
+Apache APR：https://apr.apache.org/
 
 讯飞SDK包导入方式：https://doc.xfyun.cn/msc_linux/SDK%E5%8C%85%E5%AF%BC%E5%85%A5.html
