@@ -1,6 +1,6 @@
 # mrcp-plugin-with-freeswitch 
 
-这将是我的第一个Github工程。
+这是我的第一个Github工程，特别感谢 [Cotin网站](https://cotin.tech) 《构建简单的智能客服系统》[（一）](https://cotin.tech/AI/FreeswitchSetting/)、 [（二）](https://cotin.tech/AI/UniMRCPASR/) 、[（三）](https://cotin.tech/AI/UniMRCPASR/) 对于构建过程的帮助。
 
 ## 主要目的 
 
@@ -94,7 +94,7 @@ make install
 
 ### 第三步 集成讯飞开放平台SDK
 
-实际上一步下载的MRCP-Plugin-Demo中已有SDK包，但从讯飞开放平台下载的SDK包和用户以及用户创建的应用相关联，因此需要将third-party/xfyun/中的文件和文件夹全部删除，重新下载解压属于自己的SDK，目录与源代码基本一致。
+实际上一步下载的MRCP-Plugin-Demo中已有SDK包，但从讯飞开放平台下载的SDK包和用户以及用户创建的应用相关联，因此需要将third-party/xfyun中的文件和文件夹全部删除，重新下载解压属于自己的SDK，目录与源代码基本一致。
 
 1.需要你并注册登录 [讯飞开放平台](https://www.xfyun.cn/) ，进入控制台页面，并创建应用；
 
@@ -113,6 +113,10 @@ make install
 测试工具：Adore SIP Client
 
 在App Store（其他手机系统请到对应应用市场）中搜索“Adore SIP Client”，并下载。
+
+![image](https://github.com/wangkaisine/mrcp-plugin-with-freeswitch/blob/master/image/adoresipclient.png)
+
+其中SIP IP是FreeSWITCH服务开启的IP与port，USER NAME如上所述可选1000-1019，PASSWORD默认为1234。点击Login，并拨打5001进行语言测试。
 
 ## 其他相关资料
 
