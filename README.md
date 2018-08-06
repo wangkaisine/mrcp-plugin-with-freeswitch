@@ -10,11 +10,40 @@
 
 ### 第一步 安装编译FreeSWITCH
 
-本次示例在MacOS High Sierra 10.13.4版本中进行源码编译安装，并未使用软件包安装，具体安装步骤可见官网介绍 官网安装介绍 ，其他平台如Linux（Ubuntu、CentOS）应均能安装成功。
+本次示例在MacOS High Sierra 10.13.4版本中进行源码编译安装，并未使用软件包安装，具体安装步骤可见 [官网安装介绍](https://freeswitch.org/confluence/display/FREESWITCH/macOS+macFI+Installation) ，其他平台如Linux（Ubuntu、CentOS）应均能安装成功。
 
-在/usr/local/freeswitch中的bin目录下，执行
+以下给出源码编译安装的步骤：
 
-`./freeswtch`
+
+1.下载 [FreeSWITCH源码](https://freeswitch.org/stash/scm/fs/freeswitch.git)：
+
+```
+cd /usr/local/src
+git clone -b v1.6 https://freeswitch.org/stash/scm/fs/freeswitch.git freeswitch
+```
+
+2.编译安装
+
+```
+cd freeswitch/
+./configure
+make
+make install
+```
+
+3.安装声音文件
+
+```
+make cd-sounds-install
+make cd-moh-install
+```
+
+4.运行
+
+```
+cd /usr/local/freeswitch/bin
+./freeswitch
+```
 
 即可启动应用。
 
