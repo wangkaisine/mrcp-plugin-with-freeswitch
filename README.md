@@ -1,6 +1,6 @@
 # mrcp-plugin-with-freeswitch 
 
-这将是我的第一个github工程。
+这将是我的第一个Github工程。
 
 ## 主要目的 
 
@@ -22,18 +22,33 @@ cd /usr/local/src
 git clone -b v1.6 https://freeswitch.org/stash/scm/fs/freeswitch.git freeswitch
 ```
 
-2.编译安装
+2.安装依赖库
+
+```
+brew install autoconf
+brew install automake
+brew install libtool
+brew install pkg-config
+brew install speexdsp
+brew install speex
+brew install libldns-dev
+brew install OpenSSL
+brew install pcre
+brew install pkgconfig sqlite3
+brew intall lua
+brew install opus
+brew install libsndfile
+```
+
+>注：其他系统平台请自行确认依赖库内容，可能的搜索结果：[Ubuntu/CentOS FreeSWITCH 安装依赖](https://blog.csdn.net/u012121105/article/details/74238595)。
+
+3.编译安装
 
 ```
 cd freeswitch/
 ./configure
 make
 make install
-```
-
-3.安装声音文件
-
-```
 make cd-sounds-install
 make cd-moh-install
 ```
@@ -49,7 +64,33 @@ cd /usr/local/freeswitch/bin
 
 ### 第二步 配置编译UniMRCP Server
 
-下载代码：https://github.com/cotinyang/MRCP-Plugin-Demo
+本次示例在CentOS 7中进行源码编译安装，感谢由Github用户cotinyang提供的已经写好的集成讯飞SDK的UniMRCP Server源码。
+
+1.下载[UniMRCP Server Plugin Demo 源码](https://github.com/cotinyang/MRCP-Plugin-Demo)：
+
+```
+cd /opt
+git clone https://github.com/cotinyang/MRCP-Plugin-Demo.git MRCP-Plugin-Demo
+```
+
+2.编译准备环境
+
+```
+cd MRCP-Plugin-Demo/unimrcp-deps-1.5.0
+./build-dep-libs.sh
+```
+>注：过程中需要输入两次y，并确认。
+
+3.编译安装unimrcp
+
+```
+cd unimrcp-1.5.0
+./bootstrap
+./configure
+make
+make install
+```
+即可在/usr/local/中看到安装好的unimrcp。
 
 ### 第三步 集成讯飞开放平台SDK
 
