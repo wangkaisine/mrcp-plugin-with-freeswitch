@@ -1,6 +1,6 @@
 # mrcp-plugin-with-freeswitch 
 
-这是我的第一个Github工程，特别感谢 [Cotin网站](https://cotin.tech) 《构建简单的智能客服系统》[（一）](https://cotin.tech/AI/FreeswitchSetting/)、 [（二）](https://cotin.tech/AI/UniMRCPASR/) 、[（三）](https://cotin.tech/AI/UniMRCPTTS/) 对于构建过程的帮助，您可以在阅读本教程前，先行阅读这三篇文章，本次教程将基于此给出更多的操作细节，错误处理和其它构建描述。
+这是我的第一个Github工程，特别感谢 [Cotin网站](https://cotin.tech) 《构建简单的智能客服系统》[（一）](https://cotin.tech/AI/FreeswitchSetting/)、 [（二）](https://cotin.tech/AI/UniMRCPASR/) 、[（三）](https://cotin.tech/AI/UniMRCPTTS/) 对于构建过程的帮助，您在阅读本教程前，可以先行阅读这三篇文章，本教程基于此调整了构建顺序，给出更多的操作细节，错误处理以及其它构建描述。
 
 ## 主要目的 
 
@@ -14,7 +14,7 @@
 
 ### 第一步 安装编译FreeSWITCH
 
-本次示例在MacOS High Sierra 10.13.4系统版本中进行源码编译安装，未使用软件包安装，具体安装步骤可见 [官网安装介绍](https://freeswitch.org/confluence/display/FREESWITCH/macOS+macFI+Installation) ，其他平台如Linux（Ubuntu、CentOS）应均能安装成功。
+本次示例的FreeSWITCH在MacOS High Sierra 10.13.4系统版本中进行源码编译安装，未使用软件包安装，具体安装步骤可见 [官网安装介绍](https://freeswitch.org/confluence/display/FREESWITCH/macOS+macFI+Installation) ，其他平台如Linux（Ubuntu、CentOS）应均能安装成功。
 
 以下给出源码编译安装的步骤：
 
@@ -66,11 +66,11 @@ cd /usr/local/freeswitch/bin
 
 即可启动应用。
 
-FreeSWITCH默认配置1000-1019（20个）用户，默认密码1234，您可以提前跳转到第四步“测试与验证”，登录并拨打5000，可以听到默认IVR的示例语音菜单指引。
+FreeSWITCH默认配置1000-1019（20个）用户，默认密码1234，您可以提前跳转到“第四步 测试与验证” 的验证步骤，登录并拨打5000，可以听到默认IVR的示例语音菜单指引。
 
 ### 第二步 配置编译UniMRCP Server
 
-本次示例在CentOS 7中进行源码编译安装，感谢由Github用户cotinyang提供的已经写好的集成讯飞SDK的UniMRCP Server源码。
+本次示例的UniMRCP Server在CentOS 7中进行源码编译安装，感谢由Github用户cotinyang提供的已经写好的集成讯飞SDK的UniMRCP Server源码。
 
 1.下载 [UniMRCP Server Plugin Demo 源码](https://github.com/cotinyang/MRCP-Plugin-Demo)：
 
@@ -356,7 +356,7 @@ make mod_unimrcp-install
 
 </configuration>
 ```
->注：1.unimrcpserver-mrcp-v2.xml中server-ip为unimrcpserver启动的主机ip；2.client-ip和rtp-ip为FreeSWITCH启动的主机，client-port仕FreeSWITCH作为客户端访问unimrcpserver的端口，手机作为客户端访问的FreeSWITCH端口默认为5060，两者不同；3.unimrcpserver-mrcp-v2.xml中的profile name应和unimrcp.conf.xml中的default-tts-profile与default-ars-profile的value一致。
+>注：1.unimrcpserver-mrcp-v2.xml中server-ip为unimrcpserver启动的主机ip；2.client-ip和rtp-ip为FreeSWITCH启动的主机，client-port仕FreeSWITCH作为客户端访问unimrcpserver的端口，手机作为客户端访问的FreeSWITCH端口默认为5060，两者不同；3.unimrcpserver-mrcp-v2.xml中的profile name应和unimrcp.conf.xml中的default-tts-profile与default-ars-profile的value一致（有些文档的分析中称mrcp_profiles中的xml文件名也必须和这两者一致，实际上是非必须的）。
 
 3.配置IVR与脚本。
 
@@ -458,13 +458,13 @@ end
 
 #### 验证
 
-测试工具：Adore SIP Client
+下载测试工具：Adore SIP Client
 
 在App Store（其他手机系统请到对应应用市场）中搜索“Adore SIP Client”，并下载。
 
 ![image](https://github.com/wangkaisine/mrcp-plugin-with-freeswitch/blob/master/image/adoresipclient.png)
 
-其中SIP IP是FreeSWITCH服务开启的主机IP与port（默认为5060），USER NAME如上所述可选1000-1019，PASSWORD默认为1234。点击"Login"（请确保手机连接的网络与FreeSWITCH在同一个子网内），并拨打5001进行语言测试验证。
+其中SIP IP是FreeSWITCH服务开启的主机IP与port（默认为5060），USER NAME如上所述可选1000-1019，PASSWORD默认为1234。点击"Login"（请确保手机连接的网络与FreeSWITCH在同一个子网内），并拨打5001进行语言测试验证（如果您是从第一步跳转过来的，请拨打5000）。
 
 ## 其他相关资料
 
