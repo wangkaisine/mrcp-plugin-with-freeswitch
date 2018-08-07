@@ -1,6 +1,6 @@
 # mrcp-plugin-with-freeswitch 
 
-这是我的第一个Github工程，特别感谢 [Cotin网站](https://cotin.tech) 《构建简单的智能客服系统》[（一）](https://cotin.tech/AI/FreeswitchSetting/)、 [（二）](https://cotin.tech/AI/UniMRCPASR/) 、[（三）](https://cotin.tech/AI/UniMRCPTTS/) 对于构建过程的帮助，您可以在阅读本教程前，先行阅读这三篇文章，本次教程将基于此给出更多的操作细节，错误处理和其他技术讲解。
+这是我的第一个Github工程，特别感谢 [Cotin网站](https://cotin.tech) 《构建简单的智能客服系统》[（一）](https://cotin.tech/AI/FreeswitchSetting/)、 [（二）](https://cotin.tech/AI/UniMRCPASR/) 、[（三）](https://cotin.tech/AI/UniMRCPTTS/) 对于构建过程的帮助，您可以在阅读本教程前，先行阅读这三篇文章，本次教程将基于此给出更多的操作细节，错误处理和其它构建描述。
 
 ## 主要目的 
 
@@ -10,7 +10,7 @@
 
 ### 第一步 安装编译FreeSWITCH
 
-本次示例在MacOS High Sierra 10.13.4版本中进行源码编译安装，并未使用软件包安装，具体安装步骤可见 [官网安装介绍](https://freeswitch.org/confluence/display/FREESWITCH/macOS+macFI+Installation) ，其他平台如Linux（Ubuntu、CentOS）应均能安装成功。
+本次示例在MacOS High Sierra 10.13.4系统版本中进行源码编译安装，未使用软件包安装，具体安装步骤可见 [官网安装介绍](https://freeswitch.org/confluence/display/FREESWITCH/macOS+macFI+Installation) ，其他平台如Linux（Ubuntu、CentOS）应均能安装成功。
 
 以下给出源码编译安装的步骤：
 
@@ -55,14 +55,14 @@ make cd-moh-install
 
 4.运行
 
-```
+```shell
 cd /usr/local/freeswitch/bin
 ./freeswitch
 ```
 
 即可启动应用。
 
-FreeSWITCH默认配置1000-1019（20个）用户，默认密码1234，您可以提前跳转到第四步“测试与验证”，登录并拨打5000，可以听到默认ivr的示例语音菜单指引。
+FreeSWITCH默认配置1000-1019（20个）用户，默认密码1234，您可以提前跳转到第四步“测试与验证”，登录并拨打5000，可以听到默认IVR的示例语音菜单指引。
 
 ### 第二步 配置编译UniMRCP Server
 
@@ -81,7 +81,7 @@ git clone https://github.com/cotinyang/MRCP-Plugin-Demo.git MRCP-Plugin-Demo
 cd MRCP-Plugin-Demo/unimrcp-deps-1.5.0
 ./build-dep-libs.sh
 ```
->注：过程中需要输入两次y，并确认。
+>注：1.过程中需要输入两次y，并确认；2.另外，我们为该Demo工程Fork了一个自己维护的工程，地址为https://github.com/wangkaisine/MRCP-Plugin-Demo 您也可以使用这个地址的源码。
 
 3.编译安装unimrcp
 
@@ -98,13 +98,13 @@ make install
 
 实际上一步下载的MRCP-Plugin-Demo中已有SDK包，但从讯飞开放平台下载的SDK包和用户以及用户创建的应用相关联，因此需要将third-party/xfyun中的文件和文件夹全部删除，重新下载解压属于自己的SDK，目录与源代码基本一致。
 
-1.需要你并注册登录 [讯飞开放平台](https://www.xfyun.cn/) ，进入控制台页面，并创建应用；
+1.您需要注册并登录 [讯飞开放平台](https://www.xfyun.cn/) ，进入控制台页面，并创建应用；
 
 >注：创建应用页面中的应用平台选择“Linux”。
 
 2.在“我的应用”界面获得你的APPID，并为该应用“添加新服务”，选择需要的“语音听写”和”在线语音合成“服务（本示例需要）；
 
-3.点击右侧“SDK下载”，在跳转页面中确认“选择应用”已经选中了你创建的应用，“选择您需要的AI能力”选中上述两项服务，并点击“SDK下载”等待SDK生成与完成下载。
+3.点击右侧“SDK下载”，在跳转页面中确认“选择应用”已经选中了您创建的应用，“选择您需要的AI能力”选中上述两项服务，并点击“SDK下载”等待SDK生成与完成下载。
 
 4.将下载的zip包，解压并替换MRCP-Plugin-Demo/unimrcp-1.5.0/plugins/third-party/xfyun/下的所有文件及文件夹。
 
