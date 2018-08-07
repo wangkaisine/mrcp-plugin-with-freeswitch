@@ -87,11 +87,52 @@ cd MRCP-Plugin-Demo/unimrcp-deps-1.5.0
 ```
 >注：1.过程中需要输入两次y，并确认；2.另外，我们为该Demo工程Fork了一个自己维护的工程，地址为https://github.com/wangkaisine/MRCP-Plugin-Demo 您也可以使用这个地址的源码。
 
-3.编写plugin代码
+3.编译安装unimrcp
 
-本步骤将告诉您如何编写unimrcp的插件代码。实际上，上述MRCP-Plugin-Demo代码是在  [Unimrcp官网](http://www.unimrcp.org) 下载 [Unimrcp 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-1-5-0/unimrcp-1-5-0-zip) 和 [Unimrcp Deps 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-deps-1-5-0/unimrcp-deps-1-5-0-zip) 并在此基础上添加的plugin代码，对此代码不感兴趣或暂时不需了解的读者可以忽略此步骤。
+```shell
+cd unimrcp-1.5.0
+./bootstrap
+./configure
+make
+make install
+```
+即可在/usr/local/中看到安装好的unimrcp。
 
-4.集成讯飞开放平台SDK
+4.测试运行
+
+```shell
+cd /usr/local/unimrcp/bin
+./unimrcpserver -o 3
+```
+
+可以使用client进行验证
+
+```shell
+cd /usr/local/unimrcp/bin
+./unimrcpclient
+>help
+usage:
+
+- run [app_name] [profile_name] (run demo application)
+       app_name is one of 'synth', 'recog', 'bypass', 'discover'
+       profile_name is one of 'uni2', 'uni1', ...
+
+       examples: 
+           run synth
+           run recog
+           run synth uni1
+           run recog uni1
+
+- loglevel [level] (set loglevel, one of 0,1...7)
+
+- quit, exit
+```
+
+输入help回车，给出了使用方法，输入run recog运行语音识别测试，run synth进行语音合成测试。
+
+### 第三步 集成讯飞开放平台SDK
+
+1.讯飞开发平台SDK下载
 
 由于从讯飞开放平台下载的SDK包和用户以及用户创建的应用相关联，因此需要将third-party/xfyun中的文件和文件夹全部删除，重新下载解压属于自己的SDK，目录与源代码基本一致。
 
@@ -105,24 +146,11 @@ cd MRCP-Plugin-Demo/unimrcp-deps-1.5.0
 
 > 注：创建应用页面中的应用平台选择“Linux”。
 
-5.编译安装unimrcp
+2.plugin编写与编译
 
-```shell
-cd unimrcp-1.5.0
-./bootstrap
-./configure
-make
-make install
-```
-即可在/usr/local/中看到安装好的unimrcp。
+本步骤将告诉您如何编写unimrcp的插件代码。实际上，上述MRCP-Plugin-Demo代码是在  [Unimrcp官网](http://www.unimrcp.org) 下载 [Unimrcp 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-1-5-0/unimrcp-1-5-0-zip) 和 [Unimrcp Deps 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-deps-1-5-0/unimrcp-deps-1-5-0-zip) 并在此基础上添加的plugin代码。
 
-### 第三步 
-
-实际上一步下载的MRCP-Plugin-Demo中已有SDK包，但
-
-5.重新编译安装unimrcp。
-
-### 第三步 配置与验证
+### 第四步 配置与验证
 
 #### 配置
 
