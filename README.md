@@ -148,7 +148,122 @@ usage:
 
 2.plugin编写与编译
 
-本步骤将告诉您如何编写unimrcp的插件代码。实际上，上述MRCP-Plugin-Demo代码是在  [Unimrcp官网](http://www.unimrcp.org) 下载 [Unimrcp 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-1-5-0/unimrcp-1-5-0-zip) 和 [Unimrcp Deps 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-deps-1-5-0/unimrcp-deps-1-5-0-zip) 并在此基础上添加的plugin代码。
+本步骤将告诉您如何编写unimrcp的插件代码，即现在MRCP-Plugin-Demo/unimrcp-1.5.0/plugins文件夹下xfyun_recog、xfyun_xynth文件夹下的文件及其相关配置是如何得到的，如果您当前还不关注此细节，可以跳过本步骤至第四步。
+
+实际上，上述MRCP-Plugin-Demo代码是在  [Unimrcp官网](http://www.unimrcp.org) 下载 [Unimrcp 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-1-5-0/unimrcp-1-5-0-zip) 和 [Unimrcp Deps 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-deps-1-5-0/unimrcp-deps-1-5-0-zip) 并在此基础上添加的plugin代码。
+
+首先编辑configure.ac文件，会在后面的Makefile中使用到的宏定义。XFyun recognizer plugin的添加如下：
+
+```shell
+dnl XFyun recognizer plugin.
+UNI_PLUGIN_ENABLED(xfyunrecog)
+
+AM_CONDITIONAL([XFYUNRECOG_PLUGIN],[test "${enable_xfyunrecog_plugin}" = "yes"])
+
+...
+
+plugins/xfyun-recog/Makefile
+
+...
+
+echo XFyun recognizer plugin....... : $enable_xfyunrecog_plugin
+```
+
+>注：其中 ··· 是该文件中的其他默认配置，请找到对应填写。
+
+对应地，XFyun synthesizer plugin的添加如下：
+
+```shell
+dnl XFyun synthesizer plugin.
+UNI_PLUGIN_ENABLED(xfyunsynth)
+
+AM_CONDITIONAL([XFYUNSYNTH_PLUGIN],[test "${enable_xfyunsynth_plugin}" = "yes"])
+
+···
+
+plugins/xfyun-synth/Makefile
+
+···
+
+echo XFyun synthesizer plugin...... : $enable_xfyunsynth_plugin
+```
+
+新增源码与目录
+
+在 plugins 目录下，新建 xfyun-recog 目录，并在该目录下新建 src 目录，可以将 demo_recog_engine.c 拷贝到该目录下改名为 xfyun_recog_engine.c，将xfyun_recog_engine.c文件进行修改（修改过程暂略），xfyun-synth目录下对应创建并修改。
+
+在xfyun-recog文件夹下新建Makefile.am文件，内容如下：
+
+```shell
+AM_CPPFLAGS                = $(UNIMRCP_PLUGIN_INCLUDES)
+
+plugin_LTLIBRARIES         = xfyunrecog.la
+
+xfyunrecog_la_SOURCES       = src/xfyun_recog_engine.c
+xfyunrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS) \
+                              -L$(top_srcdir)/plugins/third-party/xfyun/libs/x64 \
+                              -lmsc -ldl -lpthread -lrt
+xfyunrecog_ladir            = $(libdir)
+xfyunrecog_la_DATA          = $(top_srcdir)/plugins/third-party/xfyun/libs/x64/libmsc.so
+
+
+include $(top_srcdir)/build/rules/uniplugin.am
+
+UNIMRCP_PLUGIN_INCLUDES     += -I$(top_srcdir)/plugins/third-party/xfyun/include
+```
+
+对应地，在fyun-synth文件夹下新建Makefile.am文件夹，内容如下：
+
+```shell
+AM_CPPFLAGS                = $(UNIMRCP_PLUGIN_INCLUDES)
+
+plugin_LTLIBRARIES         = xfyunsynth.la
+
+xfyunsynth_la_SOURCES       = src/xfyun_synth_engine.c
+xfyunsynth_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS) \
+                              -L$(top_srcdir)/plugins/third-party/xfyun/libs/x64 \
+                              -lmsc -ldl -lpthread -lrt
+xfyunsynth_ladir            = $(libdir)
+
+include $(top_srcdir)/build/rules/uniplugin.am
+
+UNIMRCP_PLUGIN_INCLUDES     += -I$(top_srcdir)/plugins/third-party/xfyun/include
+```
+
+修改plugins文件夹下Makefile.am文件，xfyun-recog添加内容如下：
+
+```shell
+if XFYUNRECOG_PLUGIN
+SUBDIRS               += xfyun-recog
+endif
+```
+
+对应地，xfyun-synth添加内容如下：
+
+```shell
+if XFYUNRECOG_PLUGIN
+SUBDIRS               += xfyun-synth
+endif
+```
+
+修改conf/unimrcpserver.xml文件，从默认启用demo engine改为启用我们的两个engine。
+
+xfyun-recog修改如下：
+
+```xml
+<engine id="Demo-Recog-1" name="demorecog" enable="false"/>
+<engine id="XFyun-Recog-1" name="xfyunrecog" enable="true"/>
+```
+对应地，xfyun-synth修改如下：
+
+```xml
+<engine id="Demo-Synth-1" name="demorecog" enable="false"/>
+<engine id="XFyun-Recog-1" name="xfyunrecog" enable="true"/>
+```
+
+同时，如果您已经准备好将UniMRCP Server和FreeSWITCH对接，您应该在conf/unimrcpserver.xml中配置好server的ip地址，即当前unimrcp安装的子网访问地址。
+
+重新编译安装unimrcp（第二步 3）。
 
 ### 第四步 配置与验证
 
@@ -172,7 +287,6 @@ make mod_unimrcp-install
 
 # 编辑/usr/local/freeswitch/conf/autoload_configs/modules.conf.xml，去掉注释符号，如果没有发现对应模块，则添加
 <load module="mod_unimrcp">
-
 ```
 
 2.设置profile文件与conf文件；
@@ -355,6 +469,8 @@ end
 ## 其他相关资料
 
 FreeSWITCH主页：https://freeswitch.com/
+
+Unimrcp主页：http://www.unimrcp.org/
 
 Apache APR：https://apr.apache.org/
 
