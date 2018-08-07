@@ -6,6 +6,10 @@
 
 使用FreeSWITCH接受用户手机呼叫，通过UniMRCP Server集成讯飞开放平台（xfyun）插件将用户语音进行语音识别（ASR），并根据自定义业务逻辑调用语音合成（TTS），构建简单的端到端语音呼叫中心。
 
+#### 总体结构如下图所示：
+
+![image](https://github.com/wangkaisine/mrcp-plugin-with-freeswitch/blob/master/image/mrcpluginwithfreeswitch.png)
+
 ## 构建步骤
 
 ### 第一步 安装编译FreeSWITCH
@@ -83,7 +87,25 @@ cd MRCP-Plugin-Demo/unimrcp-deps-1.5.0
 ```
 >注：1.过程中需要输入两次y，并确认；2.另外，我们为该Demo工程Fork了一个自己维护的工程，地址为https://github.com/wangkaisine/MRCP-Plugin-Demo 您也可以使用这个地址的源码。
 
-3.编译安装unimrcp
+3.编写plugin代码
+
+本步骤将告诉您如何编写unimrcp的插件代码。实际上，上述MRCP-Plugin-Demo代码是在  [Unimrcp官网](http://www.unimrcp.org) 下载 [Unimrcp 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-1-5-0/unimrcp-1-5-0-zip) 和 [Unimrcp Deps 1.5.0](http://www.unimrcp.org/project/release-view/unimrcp-deps-1-5-0/unimrcp-deps-1-5-0-zip) 并在此基础上添加的plugin代码，对此代码不感兴趣或暂时不需了解的读者可以忽略此步骤。
+
+4.集成讯飞开放平台SDK
+
+由于从讯飞开放平台下载的SDK包和用户以及用户创建的应用相关联，因此需要将third-party/xfyun中的文件和文件夹全部删除，重新下载解压属于自己的SDK，目录与源代码基本一致。
+
+您需要注册并登录 [讯飞开放平台](https://www.xfyun.cn/) ，进入控制台页面，并创建应用；
+
+在“我的应用”界面获得你的APPID，并为该应用“添加新服务”，选择需要的“语音听写”和”在线语音合成“服务（本示例需要）；
+
+点击右侧“SDK下载”，在跳转页面中确认“选择应用”已经选中了您创建的应用，“选择您需要的AI能力”选中上述两项服务，并点击“SDK下载”等待SDK生成与完成下载。
+
+将下载的zip包，解压并替换MRCP-Plugin-Demo/unimrcp-1.5.0/plugins/third-party/xfyun/下的所有文件及文件夹。
+
+> 注：创建应用页面中的应用平台选择“Linux”。
+
+5.编译安装unimrcp
 
 ```shell
 cd unimrcp-1.5.0
@@ -94,23 +116,13 @@ make install
 ```
 即可在/usr/local/中看到安装好的unimrcp。
 
-### 第三步 集成讯飞开放平台SDK
+### 第三步 
 
-实际上一步下载的MRCP-Plugin-Demo中已有SDK包，但从讯飞开放平台下载的SDK包和用户以及用户创建的应用相关联，因此需要将third-party/xfyun中的文件和文件夹全部删除，重新下载解压属于自己的SDK，目录与源代码基本一致。
-
-1.您需要注册并登录 [讯飞开放平台](https://www.xfyun.cn/) ，进入控制台页面，并创建应用；
-
->注：创建应用页面中的应用平台选择“Linux”。
-
-2.在“我的应用”界面获得你的APPID，并为该应用“添加新服务”，选择需要的“语音听写”和”在线语音合成“服务（本示例需要）；
-
-3.点击右侧“SDK下载”，在跳转页面中确认“选择应用”已经选中了您创建的应用，“选择您需要的AI能力”选中上述两项服务，并点击“SDK下载”等待SDK生成与完成下载。
-
-4.将下载的zip包，解压并替换MRCP-Plugin-Demo/unimrcp-1.5.0/plugins/third-party/xfyun/下的所有文件及文件夹。
+实际上一步下载的MRCP-Plugin-Demo中已有SDK包，但
 
 5.重新编译安装unimrcp。
 
-### 第四步 配置与验证
+### 第三步 配置与验证
 
 #### 配置
 
