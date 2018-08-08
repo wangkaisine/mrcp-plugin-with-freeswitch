@@ -66,6 +66,8 @@ cd /usr/local/freeswitch/bin
 
 即可启动应用。
 
+>注：安装过程中可能出现的问题 [configure中的错误](https://blog.csdn.net/singleroot/article/details/52298620)。
+
 FreeSWITCH默认配置1000-1019（20个）用户，默认密码1234，您可以提前跳转到“第四步 测试与验证” 的验证步骤，登录并拨打5000，可以听到默认IVR的示例语音菜单指引。
 
 ### 第二步 配置编译UniMRCP Server
@@ -169,7 +171,7 @@ plugins/xfyun-recog/Makefile
 echo XFyun recognizer plugin....... : $enable_xfyunrecog_plugin
 ```
 
->注：其中 ··· 是该文件中的其他默认配置，请找到对应填写。
+>注：其中 ··· 是该文件中的其它默认配置，请找到对应位置填写。
 
 对应地，XFyun synthesizer plugin的添加如下：
 
@@ -453,7 +455,7 @@ end
 </grammar>
 ```
 
->注：lua脚本中，”play_and_detect_speech” 调用了 ASR 服务，”speak” 调用了 TTS 服务。
+>注：lua脚本中，”play_and_detect_speech” 调用了 ASR 服务，”speak” 调用了 TTS 服务。[配置启动中遇到问题](https://www.jianshu.com/p/6aa2140937b2)。
 
 
 #### 验证
