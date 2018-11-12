@@ -41,7 +41,7 @@ brew install libldns-dev
 brew install OpenSSL
 brew install pcre
 brew install pkgconfig sqlite3
-brew intall lua
+brew install lua
 brew install opus
 brew install libsndfile
 ```
