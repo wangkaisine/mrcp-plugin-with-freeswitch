@@ -74,8 +74,6 @@ FreeSWITCH默认配置1000-1019（20个）用户，默认密码1234，您可以�
 
 ### 第二步 配置编译UniMRCP Server
 
->wangkaisine@gmail.com
-
 本次示例的UniMRCP Server在CentOS 7中进行源码编译安装，感谢由Github用户cotinyang提供的已经写好的集成讯飞SDK的UniMRCP Server源码。
 
 1.下载 [UniMRCP Server Plugin Demo 源码](https://github.com/cotinyang/MRCP-Plugin-Demo)：
