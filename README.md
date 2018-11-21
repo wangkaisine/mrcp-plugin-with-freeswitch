@@ -52,6 +52,8 @@ brew install libsndfile
 
 ```shell
 cd freeswitch/
+# 先执行 bootstrap.sh，生成configure文件
+./bootstrap.sh 
 ./configure
 make
 make install
