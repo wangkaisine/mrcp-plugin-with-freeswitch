@@ -90,6 +90,7 @@ git clone https://github.com/cotinyang/MRCP-Plugin-Demo.git MRCP-Plugin-Demo
 ```shell
 cd MRCP-Plugin-Demo/unimrcp-deps-1.5.0
 ## 编译可能出现错误, 注释掉：107 ~ 109, getopt的set，其中存在不识别的option
+## 编译生成apr, apr-util, target path: ./libs
 ./build-dep-libs.sh
 ```
 >注：1.过程中需要输入两次y，并确认；2.另外，我们为该Demo工程Fork了一个自己维护的工程，地址为https://github.com/wangkaisine/MRCP-Plugin-Demo 您也可以使用这个地址的源码。
@@ -99,6 +100,8 @@ cd MRCP-Plugin-Demo/unimrcp-deps-1.5.0
 ```shell
 cd unimrcp-1.5.0
 ./bootstrap
+## 如果不能自动检测apr，apr-util,请在configure中增加 option：--with-apr=/path/apr --with-apr-util=/path/apr-util/
+## apr， apr-util由./build-dep-libs.sh 生成
 ./configure
 make
 make install
