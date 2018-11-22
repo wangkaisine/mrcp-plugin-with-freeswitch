@@ -296,7 +296,7 @@ asr_tts/mod_unimrcp
 make mod_unimrcp-install
 
 # 编辑/usr/local/freeswitch/conf/autoload_configs/modules.conf.xml，去掉注释符号，如果没有发现对应模块，则添加
-<load module="mod_unimrcp">
+<load module="mod_unimrcp"/>
 ```
 
 2.设置profile文件与conf文件；
