@@ -368,6 +368,8 @@ make mod_unimrcp-install
 ```
 >注：1.unimrcpserver-mrcp-v2.xml中server-ip为unimrcpserver启动的主机ip；2.client-ip和rtp-ip为FreeSWITCH启动的主机，client-port仕FreeSWITCH作为客户端访问unimrcpserver的端口，手机作为客户端访问的FreeSWITCH端口默认为5060，两者不同；3.unimrcpserver-mrcp-v2.xml中的profile name应和unimrcp.conf.xml中的default-tts-profile与default-ars-profile的value一致（有些文档的分析中称mrcp_profiles中的xml文件名也必须和这两者一致，实际上是非必须的）。
 
+> **Attenion: unimrcpserver 和 freeswitch 部署在同一个网段很重要，最好部署测试的时候在同一台物理机器上进行**
+
 3.配置IVR与脚本。
 
 在/usr/local/freeswitch/conf/dialplan/default.xml里新增如下配置：
