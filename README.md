@@ -46,12 +46,14 @@ brew install opus
 brew install libsndfile
 ```
 
->注：其他系统平台请自行确认依赖库内容，可能的搜索结果：[Ubuntu/CentOS FreeSWITCH 安装依赖](https://blog.csdn.net/u012121105/article/details/74238595)。
+>注：其他系统平台请自行确认依赖库内容，可能的搜索结果：[Ubuntu/CentOS FreeSWITCH 安装依赖](https://blog.csdn.net/u012121105/article/details/74238595)。 在ubuntu下：[libtool not found](https://blog.csdn.net/aphero/article/details/78309817)。
 
 3.编译安装
 
 ```shell
 cd freeswitch/
+# 先执行 bootstrap.sh，生成configure文件
+./bootstrap.sh 
 ./configure
 make
 make install
@@ -87,6 +89,8 @@ git clone https://github.com/cotinyang/MRCP-Plugin-Demo.git MRCP-Plugin-Demo
 
 ```shell
 cd MRCP-Plugin-Demo/unimrcp-deps-1.5.0
+## 编译可能出现错误, 注释掉：107 ~ 109, getopt的set，其中存在不识别的option
+## 编译生成apr, apr-util, target path: ./libs
 ./build-dep-libs.sh
 ```
 >注：1.过程中需要输入两次y，并确认；2.另外，我们为该Demo工程Fork了一个自己维护的工程，地址为https://github.com/wangkaisine/MRCP-Plugin-Demo 您也可以使用这个地址的源码。
@@ -96,6 +100,8 @@ cd MRCP-Plugin-Demo/unimrcp-deps-1.5.0
 ```shell
 cd unimrcp-1.5.0
 ./bootstrap
+## 如果不能自动检测apr，apr-util,请在configure中增加 option：--with-apr=/path/apr --with-apr-util=/path/apr-util/
+## apr， apr-util由./build-dep-libs.sh 生成
 ./configure
 make
 make install
@@ -194,7 +200,7 @@ echo XFyun synthesizer plugin...... : $enable_xfyunsynth_plugin
 
 新增源码与目录
 
-在 plugins 目录下，新建 xfyun-recog 目录，并在该目录下新建 src 目录，可以将 demo_recog_engine.c 拷贝到该目录下改名为 xfyun_recog_engine.c，将xfyun_recog_engine.c文件进行修改（修改过程暂略），xfyun-synth目录下对应创建并修改。
+在 plugins 目录下，新建 xfyun-recog 目录，并在该目录下新建 src 目录，可以将 demo_recog_engine.c 拷贝到该目录下改名为 xfyun_recog_engine.c，将xfyun_recog_engine.c文件进行修改（已知一个修改的部分：将appid修改成你自己下载sdk的appid,不然会报错：QISRAudioWrite failed! error code:10407），xfyun-synth目录下对应创建并修改。
 
 在xfyun-recog文件夹下新建Makefile.am文件，内容如下：
 
@@ -262,7 +268,7 @@ xfyun-recog修改如下：
 
 ```xml
 <engine id="Demo-Synth-1" name="demorecog" enable="false"/>
-<engine id="XFyun-Recog-1" name="xfyunrecog" enable="true"/>
+<engine id="XFyun-Synth-1" name="xfyunsynth" enable="true"/>
 ```
 
 同时，如果您已经准备好将UniMRCP Server和FreeSWITCH对接，您应该在conf/unimrcpserver.xml中配置好server的ip地址，即当前unimrcp安装的子网访问地址。
@@ -290,7 +296,7 @@ asr_tts/mod_unimrcp
 make mod_unimrcp-install
 
 # 编辑/usr/local/freeswitch/conf/autoload_configs/modules.conf.xml，去掉注释符号，如果没有发现对应模块，则添加
-<load module="mod_unimrcp">
+<load module="mod_unimrcp"/>
 ```
 
 2.设置profile文件与conf文件；
@@ -362,6 +368,8 @@ make mod_unimrcp-install
 ```
 >注：1.unimrcpserver-mrcp-v2.xml中server-ip为unimrcpserver启动的主机ip；2.client-ip和rtp-ip为FreeSWITCH启动的主机，client-port仕FreeSWITCH作为客户端访问unimrcpserver的端口，手机作为客户端访问的FreeSWITCH端口默认为5060，两者不同；3.unimrcpserver-mrcp-v2.xml中的profile name应和unimrcp.conf.xml中的default-tts-profile与default-ars-profile的value一致（有些文档的分析中称mrcp_profiles中的xml文件名也必须和这两者一致，实际上是非必须的）。
 
+> **Attenion: unimrcpserver 和 freeswitch 部署在同一个网段很重要，最好部署测试的时候在同一台物理机器上进行**
+
 3.配置IVR与脚本。
 
 在/usr/local/freeswitch/conf/dialplan/default.xml里新增如下配置：
@@ -410,7 +418,7 @@ end
  -- put logic to forward call here
  --
  session:sleep(250)
- session:set_tts_parms("unimrcp", "xiaofang");
+ session:set_tts_params("unimrcp", "xiaofang");
  session:speak("今天天气不错啊");
  session:hangup()
 ```
