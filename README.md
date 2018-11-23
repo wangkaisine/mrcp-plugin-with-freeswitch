@@ -46,7 +46,7 @@ brew install opus
 brew install libsndfile
 ```
 
->注：其他系统平台请自行确认依赖库内容，可能的搜索结果：[Ubuntu/CentOS FreeSWITCH 安装依赖](https://blog.csdn.net/u012121105/article/details/74238595)。
+>注：其他系统平台请自行确认依赖库内容，可能的搜索结果：[Ubuntu/CentOS FreeSWITCH 安装依赖](https://blog.csdn.net/u012121105/article/details/74238595)。 在ubuntu下：[libtool not found](https://blog.csdn.net/aphero/article/details/78309817)。
 
 3.编译安装
 
