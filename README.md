@@ -418,7 +418,7 @@ end
  -- put logic to forward call here
  --
  session:sleep(250)
- session:set_tts_parms("unimrcp", "xiaofang");
+ session:set_tts_params("unimrcp", "xiaofang");
  session:speak("今天天气不错啊");
  session:hangup()
 ```
