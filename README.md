@@ -200,7 +200,7 @@ echo XFyun synthesizer plugin...... : $enable_xfyunsynth_plugin
 
 新增源码与目录
 
-在 plugins 目录下，新建 xfyun-recog 目录，并在该目录下新建 src 目录，可以将 demo_recog_engine.c 拷贝到该目录下改名为 xfyun_recog_engine.c，将xfyun_recog_engine.c文件进行修改（修改过程暂略），xfyun-synth目录下对应创建并修改。
+在 plugins 目录下，新建 xfyun-recog 目录，并在该目录下新建 src 目录，可以将 demo_recog_engine.c 拷贝到该目录下改名为 xfyun_recog_engine.c，将xfyun_recog_engine.c文件进行修改（已知一个修改的部分：将appid修改成你自己下载sdk的appid,不然会报错：QISRAudioWrite failed! error code:10407），xfyun-synth目录下对应创建并修改。
 
 在xfyun-recog文件夹下新建Makefile.am文件，内容如下：
 
