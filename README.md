@@ -276,11 +276,20 @@ xfyun-recog修改如下：
 重新编译安装unimrcp（第二步 3）。
 
 当你遇到启动时出现：
-1.Failed to Load DSO: /usr/local/unimrcp/lib/libmsc.so: undefined symbol: _ZTVN10__cxxabiv117__class_type_infoE
-（https://www.jianshu.com/p/3286435124a2）
-2. ./unimrcpserver: error while loading shared libraries: libsofia-sip-ua.so.0: cannot open shared object file: No such file or directory
+
+```
+Failed to Load DSO: /usr/local/unimrcp/lib/libmsc.so: undefined symbol: _ZTVN10__cxxabiv117__class_type_infoE
+
+```
 fix:
- ```
+
+（https://www.jianshu.com/p/3286435124a2）
+
+2. ```./unimrcpserver: error while loading shared libraries: libsofia-sip-ua.so.0: cannot open shared object file: No such file or directory```
+
+fix:
+
+```
   在etc/ld.so.conf 內容裡增加: /usr/local/lib
   ldconfig 將ld.so.conf讀入cache
  ```
