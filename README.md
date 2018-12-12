@@ -275,6 +275,9 @@ xfyun-recog修改如下：
 
 重新编译安装unimrcp（第二步 3）。
 
+当你遇到启动时出现：Failed to Load DSO: /usr/local/unimrcp/lib/libmsc.so: undefined symbol: _ZTVN10__cxxabiv117__class_type_infoE
+（https://www.jianshu.com/p/3286435124a2）
+
 ### 第四步 配置与验证
 
 #### 配置
