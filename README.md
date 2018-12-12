@@ -277,7 +277,7 @@ xfyun-recog修改如下：
 
 当你遇到启动时出现：
 
-```
+1. ```
 Failed to Load DSO: /usr/local/unimrcp/lib/libmsc.so: undefined symbol: _ZTVN10__cxxabiv117__class_type_infoE
 
 ```
