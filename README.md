@@ -212,7 +212,7 @@ plugin_LTLIBRARIES         = xfyunrecog.la
 xfyunrecog_la_SOURCES       = src/xfyun_recog_engine.c
 xfyunrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS) \
                               -L$(top_srcdir)/plugins/third-party/xfyun/libs/x64 \
-                              -lmsc -ldl -lpthread -lrt
+                              -lmsc -ldl -lpthread -lrt -lstdc++
 xfyunrecog_ladir            = $(libdir)
 xfyunrecog_la_DATA          = $(top_srcdir)/plugins/third-party/xfyun/libs/x64/libmsc.so
 
@@ -275,24 +275,21 @@ xfyun-recog修改如下：
 
 重新编译安装unimrcp（第二步 3）。
 
-当你遇到启动时出现：
+当你启动时出现如下问题时：
 
-1. ```
-Failed to Load DSO: /usr/local/unimrcp/lib/libmsc.so: undefined symbol: _ZTVN10__cxxabiv117__class_type_infoE
+>1. Failed to Load DSO: /usr/local/unimrcp/lib/libmsc.so: undefined symbol: _ZTVN10__cxxabiv117__class_type_infoE
 
-```
-fix:
+   fix:[-lstdc++](https://www.jianshu.com/p/3286435124a2)
 
-（https://www.jianshu.com/p/3286435124a2）
 
-2. ```./unimrcpserver: error while loading shared libraries: libsofia-sip-ua.so.0: cannot open shared object file: No such file or directory```
+>2. ./unimrcpserver: error while loading shared libraries: libsofia-sip-ua.so.0: cannot open shared object file: No such file or directory
 
 fix:
 
+```shell
+在etc/ld.so.conf 内容增加: /usr/local/lib
+ldconfig 将ld.so.conf读入cache
 ```
-  在etc/ld.so.conf 內容裡增加: /usr/local/lib
-  ldconfig 將ld.so.conf讀入cache
- ```
 
 ### 第四步 配置与验证
 
