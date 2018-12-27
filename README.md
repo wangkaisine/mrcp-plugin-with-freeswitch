@@ -303,7 +303,7 @@ ldconfig 将ld.so.conf读入cache
 
 ```shell
 # 编辑/usr/local/src/freeswitch/modules.conf文件，找到要安装的模块，去掉前面的注释符号#
-cd /usr/local/src/frerswitch
+cd /usr/local/src/freeswitch
 vim modules.conf
 #asr_tts/mod_unimrcp
 asr_tts/mod_unimrcp
